@@ -2,10 +2,18 @@
 
 {% block body %}
     <h1>{{ product.name }}</h1>
-    <p>{{ product.description }}</p>
+    <p>{{ product.description }} </p><p>{{ product.price }} $</p>
     <p>Category:
         <a href="{% url 'shop:category_detail' product.category.id %}">
             {{ product.category.name }}
         </a>
     </p>
+    {% if user.is_autentificated %}
+        <form action="{% url 'shop:add_to_cart' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <input type="submit" value="add_to_card">
+        </form>
+    {% else %}
+        2
 {% endblock %}
